@@ -22,12 +22,19 @@ a:visited {text-decoration: none;
 a:active {text-decoration: none;
 	  color: #FB9A18;}
 
-#map {float: left;}
+#map {float: left;
+      margin: 10px;}
 
-#Locational { float: none;}
+#Locational { float: none;
+              margin: 10px;}
 
-#whispers {float: none;}
+#whispers {float: none;
+           font-size: 1.5em;}
 
-#image-bar { float: left;}
+#image-bar {float: left;}
 
-#menu {float: left;}
+#menu {float: left;
+       font-size: 1.5em;
+       color: #6D929B;}
+
+
