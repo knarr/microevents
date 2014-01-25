@@ -16,6 +16,7 @@ $(function() {
             new nokia.maps.map.component.ScaleBar()
             ],
 	zoomLevel: 14,
+    
 	center: [lat, lng]
     });
     map.overlays.clear(); // Clear any existing overlays on the map
@@ -126,7 +127,7 @@ function getInsta(lat, lng, callback) {
     $.get('https://api.instagram.com/v1/media/search?' +
 	  'lat=' + lat + '&lng=' + lng +
 	  '&count=200' +
-	  '&distance=7000' +
+	  '&distance=2000' +
 	  '&access_token=' + insta_access_token,
 	  function () {}, 'jsonp').done(function (data) {
 	      photo_data = []; // empty photo data array
