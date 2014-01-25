@@ -20,38 +20,43 @@ $(function() {
     
 	center: [lat, lng]
     });
-    map.overlays.clear(); // Clear any existing overlays on the map
     
-    getInsta(map.center.latitude, map.center.longitude, function (data) {
-	map.overlays.clear();
-	heatMap(map,data);
-    });
-    /* Works but has near identical data to instagram
-    getFlickr(map.center.latitude, map.center.longitude, function (data) {
-         heatMap(map, data);
-    }); */
+    redraw(); // Draw the heatmap
     
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(foundUserLocation);
     }
-    /* Doesn't work
-    getTwitter(lat, lng, function (data) {
-
-    });
-    */
+    reverseGetLocation();
 
 });
-  
-$( document ).mouseup(function(){
+
+// Redraw the heatmap on top of the map
+function redraw() {
   getInsta(map.center.latitude, map.center.longitude, function (data) {
       map.overlays.clear();
-	heatMap(map, data);
+	heatMap(map, data.photo_data);
+        console.log(data.popular_image);
+        $('.show_image')[0].src = data.popular_image;
+	$('.show_image')[1].src = data.display_images[0];
+        console.log($('#show_image'));
   });
- });
+
+  // Works but has near identical data to instagram
+  // getFlickr(map.center.latitude, map.center.longitude, function (data) { });
+  // Doesn't work
+  // getTwitter(lat, lng, function (data) { });
+}
+  
+$( document ).mouseup(redraw); // Redraw when the map is moved
+$("#addressInput").keyup(function(event){
+    if(event.keyCode == 13){
+        doClick();
+    }
+});
+
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
-  console.log(map.center);
 }
 
 // Draw a heatmap ontop of the given map, using the data as src
@@ -66,90 +71,24 @@ function heatMap(map, data) {
     map.overlays.add(heatmap);
 }
 
-
-function getTwitter(lat, lng, callback) {
-    var app_key = 'UQVGvAiVnMSJpqdefj44Jw';
-    var access_token = 'AAAAAAAAAAAAAAAAAAAAABRMVwAAAAAAnE6%2F41mZ20HV2LVadOufnqih%2Fc8%3DAP8Dhd8DkaKCFhJ1Nn7ZedG5TmU54dRJ865U26ByLgU0oIlkuo';
-    
-    $.get('https://api.twitter.com/1.1/geo/search.json' +
-	  '?lat=' + lat + '&long=' + lng +
-	  '&accuracy=1000' + //1km radius,
-	  function () {}, 'jsonp').done(
-	      function (data) {
-		  console.log(data);
-	      });
-    
-}
-
-function getFlickr(lat, lng, callback) {
-
-    var api_key = '58a5bac6c4ba89f8bf7fd8485ea77f30';
-    var api_secret = 'f79dc83eed4a187b';
-
-    photo_data = [];
-
-    $.getJSON('http://api.flickr.com/services/rest/' +
-	      '?method=flickr.photos.search' +
-	      '&format=json' +
-	      '&api_key=' + api_key +
-	      '&lat=' + lat + '&lon=' + lng +
-	      '&radius=1&has_geo=1&jsoncallback=?' +
-	      '&per_page=100', function (data) {
-		  data = data.photos.photo;
-		  var len = data.length;
-		  for (var i = 0; i < len; i += 1) {
-		      $.getJSON('http://api.flickr.com/services/rest/' +
-			'?method=flickr.photos.geo.getLocation&format=json' +
-			'&api_key=' + api_key + '&jsoncallback=?' +
-			'&photo_id=' + data[i].id, function (pdata) {
-			    photo_data.push({
-				'latitude': pdata.photo.location.latitude,
-				'longitude' : pdata.photo.location.longitude
-			    });
-			    if (photo_data.length == len) {
-				callback(photo_data);
-			    }
-			});
-		  }
-	      });
-	  
-        
-}
+http://www.mapquestapi.com/geocoding/v1/reverse?key=YOUR_KEY_HERE&callback=renderReverse&location=40.0755,-76.329999
 
 
-// Gets the location data for photos around lat,lng
-// apparently gets the 500 most recent photos taken near the center of the map
-// callback is called when the data has been loaded
-function getInsta(lat, lng, callback) {
+function reverseGetLocation() {
+  var key = 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la';
+  var coords = map.center;
 
-    // Instagram access token generated from app web page
-    var insta_access_token = '1018228713.7d40b7d.faae893fb8954267b98784c89cc2aaee';
-    var dist = 2000 * Math.pow(2.4, 14)/Math.pow(2.4, map.zoomLevel);
-    $.get('https://api.instagram.com/v1/media/search?' +
-	  'lat=' + lat + '&lng=' + lng +
-	  '&count=200' +
-	  '&distance=' + dist +
-	  '&access_token=' + insta_access_token,
-	  function () {}, 'jsonp').done(function (data) {
-	      photo_data = []; // empty photo data array
-
-              // Check to see if we got any data from instagram
-	      if (data.data) {
-		  var len = data.data.length; // get the length of the data
-
-		  // Gather together the data from instagram
-		  for (var i = 0; i < len; i += 1) {
-		      photo_data.push({
-			  'latitude'  : data.data[i].location.latitude,
-			  'longitude' : data.data[i].location.longitude
-		      });
-		  }
-	      }
-	      // Return the gathered data
-	      callback(photo_data);
+  $.getJSON('http://www.mapquestapi.com/geocoding/v1/reverse' +
+        '?key=' + key +
+        '&location=' + coords.latitude + "," + coords.longitude +
+        '&jsoncallback=renderReverse', function () {}, 'jsonp').done(
+      function (data) {
+          var city = data.results[0].locations[0].adminArea5;
+          var state = data.results[0].locations[0].adminArea3;
+          console.log(city + ", " + state);
+          document.getElementById("Locational").innerHTML = "<h1>Your Location: "+ city + ", " + state + ". </h1>";
       });
 }
-
 
 function doClick() {
     var address = document.getElementById('addressInput').value;
@@ -163,10 +102,9 @@ function doClick() {
 		      var location = data.results[0].locations[0].latLng;
 		      console.log(location);
 		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
-		      map.setZoomLevel(14);
-		      getInsta(location.lat, location.lng, function (data) {
-			  map.overlays.clear();
-			  heatMap(map,data);
-		      });
+          map.setZoomLevel(14);
+          reverseGetLocation();
+		      redraw();
 		  });
 }
+
