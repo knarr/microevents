@@ -81,6 +81,7 @@ function doClick() {
 		      var location = data.results[0].locations[0].latLng;
 		      console.log(location);
 		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
+          map.setZoomLevel(14);
 		      redraw();
 		  });
 }
