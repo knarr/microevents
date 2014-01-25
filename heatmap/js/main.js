@@ -21,6 +21,7 @@ $(function() {
     map.overlays.clear(); // Clear any existing overlays on the map
     
     getInsta(map.center.latitude, map.center.longitude, function (data) {
+	map.overlays.clear();
 	heatMap(map,data);
     });
     /* Works but has near identical data to instagram
@@ -40,9 +41,8 @@ $(function() {
 });
   
 $( document ).mouseup(function(){
-  map.overlays.clear();
   getInsta(map.center.latitude, map.center.longitude, function (data) {
-	console.log(data);
+      map.overlays.clear();
 	heatMap(map, data);
   });
  });
