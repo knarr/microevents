@@ -43,6 +43,8 @@ function redraw() {
 }
   
 $( document ).mouseup(redraw); // Redraw when the map is moved
+$( document ).vmouseup(redraw); // Redraw when the map is moved
+
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
