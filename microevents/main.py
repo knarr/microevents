@@ -15,10 +15,17 @@
 # limitations under the License.
 #
 import webapp2
+import datetime
+import cgi
+
+from google.appengine.ext import ndb
+from google.appengine.api import users
+
+microevents_key = ndb.Key('Microevents', 'default')
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('Hello world!')
+        self.response.write('<html><title>#hackatbrown</title><body><ul><li>Micro Events</li></ul></body></html>')
 
 app = webapp2.WSGIApplication([
     ('/', MainHandler)
