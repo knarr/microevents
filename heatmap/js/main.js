@@ -151,27 +151,21 @@ function getInsta(lat, lng, callback) {
 
 
 function doClick() {
-    var address = document.getElementById('#addressInput').value;
+    var address = document.getElementById('addressInput').value;
     var key = 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la';
-    $.get('http://mapquestapi.com/geocoding/v1/address?' +
-	  '?key=' + key +
-	  '&location=' + address +
-	  '&callback=?', function (data) {
-	      console.log(data.results[0].locations[0].latLng);
-	  });
+    
+    $.getJSON('http://www.mapquestapi.com/geocoding/v1/address' +
+	      '?key=' + key +
+	      '&location=' + address +
+	      '&jsoncallback=renderGeocode', function () {}, 'jsonp').done(
+		  function (data) {
+		      var location = data.results[0].locations[0].latLng;
+		      console.log(location);
+		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
+
+		      getInsta(location.lat, location.lng, function (data) {
+			  map.overlays.clear();
+			  heatMap(map,data);
+		      });
+		  });
 }
-
-
-function renderGeocode(response) {
-        
-  var location = response.results[0].locations[0];
-  map.setcenter(location.latLng.lat, location.latLng.lng);
-  
-    map.overlays.clear();
-    getInsta(location.latLng.lat, location.latLng.lng, function (data) {
-	console.log(data);
-	heatMap(map, data);
-   
-    });
-	
-  }
