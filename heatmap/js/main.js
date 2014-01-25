@@ -60,10 +60,16 @@ function getInsta(lat, lng, callback) {
 		      photo_data.push({
 			  'latitude'  : data.data[i].location.latitude,
 			  'longitude' : data.data[i].location.longitude
+			
 		      });
+                   
 		  }
+               //  
 	      }
 	      // Return the gathered data
+              log(data.data[i].location);
 	      callback(photo_data);
 	  });
+
+
 }
