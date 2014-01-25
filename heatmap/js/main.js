@@ -16,6 +16,7 @@ $(function() {
             new nokia.maps.map.component.ScaleBar()
             ],
 	zoomLevel: 14,
+	minZoomLevel: 11,
     
 	center: [lat, lng]
     });
@@ -59,42 +60,6 @@ function heatMap(map, data) {
     map.overlays.add(heatmap);
 }
 
-
-
-
-
-// Gets the location data for photos around lat,lng
-// apparently gets the 500 most recent photos taken near the center of the map
-// callback is called when the data has been loaded
-function getInsta(lat, lng, callback) {
-
-    // Instagram access token generated from app web page
-    var insta_access_token = '1018228713.7d40b7d.faae893fb8954267b98784c89cc2aaee';
-
-    $.get('https://api.instagram.com/v1/media/search?' +
-	  'lat=' + lat + '&lng=' + lng +
-	  '&count=200' +
-	  '&distance=2000' +
-	  '&access_token=' + insta_access_token,
-	  function () {}, 'jsonp').done(function (data) {
-	      photo_data = []; // empty photo data array
-
-              // Check to see if we got any data from instagram
-	      if (data.data) {
-		  var len = data.data.length; // get the length of the data
-
-		  // Gather together the data from instagram
-		  for (var i = 0; i < len; i += 1) {
-		      photo_data.push({
-			  'latitude'  : data.data[i].location.latitude,
-			  'longitude' : data.data[i].location.longitude
-		      });
-		  }
-	      }
-	      // Return the gathered data
-	      callback(photo_data);
-      });
-}
 
 
 function doClick() {
