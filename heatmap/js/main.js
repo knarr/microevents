@@ -153,31 +153,28 @@ var SAMPLE_POST = 'http://www.mapquest.api.com/geocoding/v1/address?key=YOUR_KEY
 function showBasicURL() {
     var safe = SAMPLE_POST;
     document.getElementById('basicSampleUrl').innerHTML = safe.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-};
+}
 
 function doClick(address) {
     var script = document.createElement('script');
     script.type = 'text/javascript';
     showBasicURL();
-    var newURL = SAMPLE_POST.replace('YOUR_KEY_HERE', Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la);
+    var newURL = SAMPLE_POST.replace('YOUR_KEY_HERE', 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la');
     newURL = newURL.replace('Lancaster,PA', address);
     script.src = newURL;
     document.body.appendChild(script);
-};
+}
 
 function renderGeocode(response) {
         
   var location = response.results[0].locations[0];
-  map.setcenter(location.latLng.lat + ", " + location.latLng.lng + ")";
-  function(){
+  map.setcenter(location.latLng.lat, location.latLng.lng);
+  
     map.overlays.clear();
     getInsta(location.latLng.lat, location.latLng.lng, function (data) {
 	console.log(data);
 	heatMap(map, data);
+   
     });
-  }
 	
-  var location = response.results[0].locations[0];
-  map.setcenter(location.latLng.lat + ", " + location.latLng.lng + ")";
-}
-
+  }
