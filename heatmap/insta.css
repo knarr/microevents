@@ -2,11 +2,12 @@ body {background-color: #F5FAFA;
       font-family: sans-serif;
       color: #FB9A18}
 
-h1 {color: #6D929B;}
+h1, h2 {color: #6D929B;
+        }
 
 p {color: #6D929B;}
 
-
+img {height: 200px;}
 
 a:hover {background-color: white;
 	 color: #FB9A18;
@@ -22,10 +23,19 @@ a:visited {text-decoration: none;
 a:active {text-decoration: none;
 	  color: #FB9A18;}
 
-#map, .show_image {display: inline-block;}
+#map {float: left;
+      margin: 10px;}
 
-#Locational { float: none;}
+#Locational { float: none;
+              margin: 10px;}
+
+#whispers {float: none;
+           font-size: 1.5em;}
+
+#image-bar {float: left;}
+
+#menu {float: left;
+       font-size: 1.5em;
+       color: #6D929B;}
 
 
-
-#image-bar { float: left;}

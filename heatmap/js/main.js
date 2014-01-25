@@ -42,12 +42,19 @@ function redraw() {
 	$('.show_image')[1].src = data.display_images[0];
   $('.credit')[1].innerHTML= data.user_data[0] + ' via Instagram';
         console.log($('#show_image'));
+        
 
   });
 
   // Get whisper information
     getWhisper(map.center.latitude, map.center.longitude, function(data) {
+<<<<<<< HEAD
 	
+=======
+	console.log(data);
+    var randomnumber=Math.floor(Math.random()*data.length)
+    document.getElementById("whispers").innerHTML ='"'+data[randomnumber]+'"'+ "</h1>";
+>>>>>>> d38f726223e43608090fd0247139d3d04fee46f9
     });
 
   // Works but has near identical data to instagram (And scaling doens't work so well)
@@ -99,7 +106,7 @@ function reverseGetLocation() {
           var city = data.results[0].locations[0].adminArea5;
           var state = data.results[0].locations[0].adminArea3;
           console.log(city + ", " + state);
-          document.getElementById("Locational").innerHTML = "<h1>Your Location: "+ city + ", " + state + ". </h1>";
+          document.getElementById("Locational").innerHTML = "<h1>"+ city + ", " + state + "</h1>";
       });
 }
 
