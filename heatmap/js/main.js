@@ -149,20 +149,18 @@ function getInsta(lat, lng, callback) {
       });
 }
 
-var SAMPLE_POST = 'http://www.mapquest.api.com/geocoding/v1/address?key=YOUR_KEY_HERE&location=Lancaster,PA&callback=renderGeocode';
-
-
 
 function doClick() {
-    var address = document.getElementById('addressInput').value;
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    var newURL = SAMPLE_POST.replace('YOUR_KEY_HERE', 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la');
-    newURL = newURL.replace('Lancaster,PA', address);
-  alert(newURL);
-    script.src = newURL;
-    document.body.appendChild(script);
+    var address = document.getElementById('#addressInput').value;
+    var key = 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la';
+    $.get('http://mapquestapi.com/geocoding/v1/address?' +
+	  '?key=' + key +
+	  '&location=' + address +
+	  '&callback=?', function (data) {
+	      console.log(data.results[0].locations[0].latLng);
+	  });
 }
+
 
 function renderGeocode(response) {
         
