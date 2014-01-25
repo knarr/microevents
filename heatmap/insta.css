@@ -22,10 +22,12 @@ a:visited {text-decoration: none;
 a:active {text-decoration: none;
 	  color: #FB9A18;}
 
-#map, .show_image {display: inline-block;}
+#map {float: left;}
 
 #Locational { float: none;}
 
-
+#whispers {float: none;}
 
 #image-bar { float: left;}
+
+#menu {float: left;}
