@@ -26,7 +26,7 @@ $(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(foundUserLocation);
     }
-    reverseGetLocation();
+    
 
 });
 
@@ -36,19 +36,15 @@ function redraw() {
       map.overlays.clear();
 
 	heatMap(map, data.photo_data);
-        console.log(data.popular_image);
+        
         $('.show_image')[0].src = data.popular_image;
-      $('.show_image')[0].title = data.user_data[0];
 	$('.show_image')[1].src = data.display_images[0];
       $('.show_image')[2].src = data.display_images[1];
-        console.log($('#show_image'));
-        
 
   });
 
   // Get whisper information
     getWhisper(map.center.latitude, map.center.longitude, function(data) {
-	console.log(data);
 	content = "";
 	for (var i = 0; i < 4; i += 1) {
 	    var randomnumber=Math.floor(Math.random()*data.length)
@@ -77,6 +73,7 @@ $("#addressInput").keyup(function(event){
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
+  reverseGetLocation();
 }
 
 // Draw a heatmap ontop of the given map, using the data as src

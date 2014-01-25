@@ -1,4 +1,20 @@
 
+// Returns a list 
+function getWhisper(lat, lng, callback) {
+    $.get('http://prod.whisper.sh/whispers/nearby' +
+	  '?limit=100' +
+	  '&lat=' + lat + '&lon=' + lng
+	      , function () {}, 'jsonp').done(
+		  function (data) {
+		      var text_data = [];
+		      for (i in data.nearby) {
+			  text_data.push(data.nearby[i].text);
+		      }
+		      callback(text_data);
+		  });
+}
+
+
 
 // Gets the location data for photos around lat,lng
 // apparently gets the 500 most recent photos taken near the center of the map
@@ -19,15 +35,19 @@ function getInsta(lat, lng, callback) {
               // Check to see if we got any data from instagram
 	      if (data.data) {
 		  var len = data.data.length; // get the length of the data
+
                   var display_images = [];
                   var popular_image_index = 0
-                  var num_images = 2;
+                  var num_images = 1;
+                  var users = [];
+
 		  // Gather together the data from instagram
 		  for (var i = 0; i < len; i += 1) {
+		  	
 		      photo_data.push({
 			  'latitude'  : data.data[i].location.latitude,
-			  'longitude' : data.data[i].location.longitude
-                      
+			  'longitude' : data.data[i].location.longitude,
+
 		      });
                   if (data.data[i].likes.count > data.data[popular_image_index].likes.count) {
 		      popular_image_index = i;
@@ -36,13 +56,17 @@ function getInsta(lat, lng, callback) {
 		  }
                   for (var x = 0; x < num_images; x++) {
                       var randomnumber=Math.floor(Math.random()*photo_data.length)
-                      display_images.push(getImage(data.data[randomnumber]));
+                      var img = getImage(data.data[randomnumber]);
+                      users.push(data.data[randomnumber].user.username);
+                      users.push(data.data[popular_image_index].user.username);
+                      display_images.push(img);
+                      
                   }
                   
-                  console.log(data.data[randomnumber]);
+                  
 	      }
 	      // Return the gathered data
-	      callback({'photo_data': photo_data, 'display_images': display_images, 'popular_image': getImage(data.data[popular_image_index])});
+	      callback({'photo_data': photo_data, 'display_images': display_images, 'popular_image': getImage(data.data[popular_image_index]), 'user_data': users});
             
       });
 }
@@ -75,30 +99,24 @@ function getFlickr(lat, lng, callback) {
 
     photo_data = [];
 
+    var dist = 2000 * Math.pow(2.4, 14)/Math.pow(2.4, map.zoomLevel);
+    
     $.getJSON('http://api.flickr.com/services/rest/' +
 	      '?method=flickr.photos.search' +
-	      '&format=json' +
+	      '&format=json&extras=geo' +
 	      '&api_key=' + api_key +
 	      '&lat=' + lat + '&lon=' + lng +
-	      '&radius=1&has_geo=1&jsoncallback=?' +
-	      '&per_page=100', function (data) {
+	      '&radius=' + 20 +
+	      '&jsoncallback=?' +
+	      '&per_page=500', function (data) {
 		  data = data.photos.photo;
 		  var len = data.length;
 		  for (var i = 0; i < len; i += 1) {
-		      $.getJSON('http://api.flickr.com/services/rest/' +
-			'?method=flickr.photos.geo.getLocation&format=json' +
-			'&api_key=' + api_key + '&jsoncallback=?' +
-			'&photo_id=' + data[i].id, function (pdata) {
-			    photo_data.push({
-				'latitude': pdata.photo.location.latitude,
-				'longitude' : pdata.photo.location.longitude
-			    });
-			    if (photo_data.length == len) {
-				callback(photo_data);
-			    }
-			});
+		      photo_data.push({
+			  'latitude': data[i].latitude,
+			  'longitude': data[i].longitude
+		      });
 		  }
+		  callback(photo_data);
 	      });
-	  
-        
 }

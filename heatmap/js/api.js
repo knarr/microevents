@@ -38,14 +38,16 @@ function getInsta(lat, lng, callback) {
 
                   var display_images = [];
                   var popular_image_index = 0
-                  var num_images = 2;
+                  var num_images = 1;
+                  var users = [];
 
 		  // Gather together the data from instagram
 		  for (var i = 0; i < len; i += 1) {
+		  	
 		      photo_data.push({
 			  'latitude'  : data.data[i].location.latitude,
-			  'longitude' : data.data[i].location.longitude
-                      
+			  'longitude' : data.data[i].location.longitude,
+
 		      });
                   if (data.data[i].likes.count > data.data[popular_image_index].likes.count) {
 		      popular_image_index = i;
@@ -54,13 +56,19 @@ function getInsta(lat, lng, callback) {
 		  }
                   for (var x = 0; x < num_images; x++) {
                       var randomnumber=Math.floor(Math.random()*photo_data.length)
-                      display_images.push(getImage(data.data[randomnumber]));
+                      var img = getImage(data.data[randomnumber]);
+                      users.push(data.data[randomnumber].user.username);
+                      users.push(data.data[popular_image_index].user.username);
+                      display_images.push(img);
+                      var randomnumber=Math.floor(Math.random()*photo_data.length)		      
+		      var img = getImage(data.data[randomnumber]);
+                      display_images.push(img);                      
                   }
                   
-                  console.log(data.data[randomnumber]);
+                  
 	      }
 	      // Return the gathered data
-	      callback({'photo_data': photo_data, 'display_images': display_images, 'popular_image': getImage(data.data[popular_image_index])});
+	      callback({'photo_data': photo_data, 'display_images': display_images, 'popular_image': getImage(data.data[popular_image_index]), 'user_data': users});
             
       });
 }
