@@ -167,6 +167,7 @@ function doClick() {
 function renderGeocode(response) {
         
   var location = response.results[0].locations[0];
+alert(location);
   map.setcenter(location.latLng.lat, location.latLng.lng);
   
     map.overlays.clear();
