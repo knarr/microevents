@@ -7,16 +7,20 @@ p {color: #6D929B;}
 
 
 
-A:hover {background-color: white;
+a:hover {background-color: white;
 	 color: #FB9A18;
 	}
 
-A:link {text-decoration: none;
+a:link {text-decoration: none;
         color: #FB9A18;
         }
 
-A:visited {text-decoration: none;
+a:visited {text-decoration: none;
            color: #FB9A18}
 
-A:active {text-decoration: none;
+a:active {text-decoration: none;
 	  color: #FB9A18;}
+
+#map, .show_image {display: inline-block;}
+
+#Locational { float: none;}
