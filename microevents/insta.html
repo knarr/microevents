@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+
+    <title>The Scenic Route</title>  
+    <link rel="stylesheet" type="text/css" href="insta.css"> 
+
+    <meta http-equiv="X-UA-Compatible" content="IE=7; IE=EmulateIE9" />
+  </head>
+
+  <body>
+    
+    <!-- container for the map -->
+    <div id="map" style="width:600px; height:400px;"></div>
+
+    <!--- Text -->
+   
+    <h1>Your location</h1>
+
+    <div id="input">
+      <input type="text" id="addressInput"/>
+      <input type="button" value="Find Address" id="submit" onclick="doClick()"/>
+    </div>
+
+    <div id="menu">
+      <a href ="location.html"><p>home</a>
+      <a href = "about.html"> about</p></a>
+    </div>
+
+
+    <!-- Libraries -->
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://api.maps.nokia.com/2.2.4/jsl.js?with=all"></script>
+
+    <!-- Our Scripts -->
+    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/api.js"></script>
+
+  </body>
+</html>  

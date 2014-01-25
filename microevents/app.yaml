@@ -5,12 +5,13 @@ api_version: 1
 threadsafe: yes
 
 handlers:
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico
+- url: /
+  static_files: insta.html
+  upload: insta.html
 
-- url: .*
-  script: main.app
+- url: /(.*)
+  static_files: \1
+  upload: (.*)
 
 libraries:
 - name: webapp2
