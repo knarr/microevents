@@ -48,13 +48,9 @@ function redraw() {
 
   // Get whisper information
     getWhisper(map.center.latitude, map.center.longitude, function(data) {
-<<<<<<< HEAD
-	
-=======
-	console.log(data);
+
     var randomnumber=Math.floor(Math.random()*data.length)
-    document.getElementById("whispers").innerHTML ='"'+data[randomnumber]+'"'+ "</h1>";
->>>>>>> d38f726223e43608090fd0247139d3d04fee46f9
+    document.getElementById("whispers").innerHTML ='"'+data[randomnumber]+'"';
     });
 
   // Works but has near identical data to instagram (And scaling doens't work so well)

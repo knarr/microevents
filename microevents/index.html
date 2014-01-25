@@ -13,40 +13,52 @@
   
     <div>
   
-    <!-- container for the map -->
-    <div id="map" style="width:600px; height:400px;"></div>
+    
 
-
+<!-- container for the images -->
 <div id="image-bar">
-<figure>
-  <img class ="show_image" src ="">
+<figure id="image1">
+  <figcaption class = "credit" innerHTML = ""></figcaption>
   <figcaption>Popular local image</figcaption>
+  <img class ="show_image" src ="">
 </figure>
 
-<figure>
-  <img class ="show_image" src ="">
+<figure id="image2">
+  <figcaption class = "credit"></figcaption>
   <figcaption>Random local image</figcaption>
+  <img class ="show_image" src ="">
 </figure>
 </div>
 
 
+ <!-- container for the map -->
+
+<figure>
+    <figcaption>
+      <!--- Text -->
+      </div>
+        <span></span>
+          <h1>WHERE ARE YOU?</h1>
+          <div id="Locational">
+            <h2>Your location</h2>
+          </div>
+      <!--- Button -->
+      <div id="input">
+        <input type="text" id="addressInput"/>
+         <button type="button" onclick="doClick()">Find Address</button>
+      </div>
+    </figcaption>
+    <!--- Map -->
+    <div id="map" style="width:600px; height:400px;"></div>
+
+</figure>
+
+<p>Local, recent <a href="http://whisper.sh/"><span style ="color: #c979c2; font-weight: bold;">whispers</span></a></p>    
+<div id="whispers">
+</div> 
+
     
-  
-    <!--- Text -->
-    </div>
-    <span></span>
-   <div id="Locational">
-    <h1>Your location</h1>
-   </div>
-    
-
-
-    <div id="input">
-      <input type="text" id="addressInput"/>
-      <button type="button" onclick="doClick()">Address Lookup</button>
-      <!--<input type="button" value="Find Address" id="submit" onclick="doClick()"/> -->
-    </div>
-
+<!-- Menu -->
     <div id ="menu">
       <a href ="insta.html"><p>home</p></a>
       <a href ="about.html"><p>about</p></a>
