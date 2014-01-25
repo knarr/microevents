@@ -33,11 +33,19 @@ $(function() {
 function redraw() {
   getInsta(map.center.latitude, map.center.longitude, function (data) {
       map.overlays.clear();
-	heatMap(map, data);
+      heatMap(map, data);
   });
 
-  // Works but has near identical data to instagram
-  // getFlickr(map.center.latitude, map.center.longitude, function (data) { });
+  // Get whisper information
+    getWhisper(map.center.latitude, map.center.longitude, function(data) {
+	console.log(data);
+    });
+
+  // Works but has near identical data to instagram (And scaling doens't work so well)
+  /* getFlickr(map.center.latitude, map.center.longitude, function (data) {
+      map.overlays.clear();
+      heatMap(map, data);
+  }); */
   // Doesn't work
   // getTwitter(lat, lng, function (data) { });
 }
@@ -72,7 +80,6 @@ function doClick() {
 	      '&jsoncallback=renderGeocode', function () {}, 'jsonp').done(
 		  function (data) {
 		      var location = data.results[0].locations[0].latLng;
-		      console.log(location);
 		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
 		      redraw();
 		  });
