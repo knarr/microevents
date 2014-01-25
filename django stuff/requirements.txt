@@ -1,0 +1,4 @@
+Django==1.5
+django-markdown-deux==1.0.4
+markdown2==2.2.0
+virtualenv==1.11.1
