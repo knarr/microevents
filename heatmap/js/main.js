@@ -26,6 +26,7 @@ $(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(foundUserLocation);
     }
+    reverseGetLocation();
 
 });
 
@@ -66,8 +67,24 @@ function heatMap(map, data) {
     map.overlays.add(heatmap);
 }
 
+http://www.mapquestapi.com/geocoding/v1/reverse?key=YOUR_KEY_HERE&callback=renderReverse&location=40.0755,-76.329999
 
 
+function reverseGetLocation() {
+  var key = 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la';
+  var coords = map.center;
+
+  $.getJSON('http://www.mapquestapi.com/geocoding/v1/reverse' +
+        '?key=' + key +
+        '&location=' + coords.latitude + "," + coords.longitude +
+        '&jsoncallback=renderReverse', function () {}, 'jsonp').done(
+      function (data) {
+          var city = data.results[0].locations[0].adminArea5;
+          var state = data.results[0].locations[0].adminArea3;
+          console.log(city + ", " + state);
+          document.getElementById("Locational").innerHTML = "<h1>Your Location: "+ city + ", " + state + ". </h1>";
+      });
+}
 
 function doClick() {
     var address = document.getElementById('addressInput').value;
@@ -82,6 +99,7 @@ function doClick() {
 		      console.log(location);
 		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
           map.setZoomLevel(14);
+          reverseGetLocation();
 		      redraw();
 		  });
 }
