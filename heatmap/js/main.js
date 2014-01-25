@@ -1,30 +1,56 @@
+var map;
+
 $(function() {
+    
     var lat = 41.8262;
     var lng = -71.4032;
     
     var container = document.getElementById("map");
 
-    var map = new nokia.maps.map.Display(container, {
-	components: [],
+    map = new nokia.maps.map.Display(container, {
+	components: [
+            new nokia.maps.map.component.Behavior(), 
+            new nokia.maps.map.component.ZoomBar(), 
+            new nokia.maps.map.component.Overview(),
+            new nokia.maps.map.component.TypeSelector(),
+            new nokia.maps.map.component.ScaleBar()
+            ],
 	zoomLevel: 14,
 	center: [lat, lng]
     });
-
     map.overlays.clear(); // Clear any existing overlays on the map
-    getInsta(lat, lng, function (data) {
+    
+    getInsta(map.center.latitude, map.center.longitude, function (data) {
 	heatMap(map,data);
     });
     /* Works but has near identical data to instagram
-    getFlickr(lat, lng, function (data) {
-	heatMap(map, data);
-    });
-    */ 
+    getFlickr(map.center.latitude, map.center.longitude, function (data) {
+         heatMap(map, data);
+    }); */
+    
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(foundUserLocation);
+    }
     /* Doesn't work
     getTwitter(lat, lng, function (data) {
 
     });
     */
+
 });
+  
+$( document ).mouseup(function(){
+  map.overlays.clear();
+  getInsta(map.center.latitude, map.center.longitude, function (data) {
+	console.log(data);
+	heatMap(map, data);
+  });
+ });
+
+function foundUserLocation(location) {
+  map.setCenter(location.coords);
+  console.log(map.center);
+}
 
 // Draw a heatmap ontop of the given map, using the data as src
 function heatMap(map, data) {
@@ -99,13 +125,13 @@ function getInsta(lat, lng, callback) {
 
     $.get('https://api.instagram.com/v1/media/search?' +
 	  'lat=' + lat + '&lng=' + lng +
-	  '&count=100' +
+	  '&count=200' +
 	  '&distance=7000' +
 	  '&access_token=' + insta_access_token,
 	  function () {}, 'jsonp').done(function (data) {
 	      photo_data = []; // empty photo data array
 
-	      // Check to see if we got any data from instagram
+              // Check to see if we got any data from instagram
 	      if (data.data) {
 		  var len = data.data.length; // get the length of the data
 
@@ -119,5 +145,5 @@ function getInsta(lat, lng, callback) {
 	      }
 	      // Return the gathered data
 	      callback(photo_data);
-	  });
+      });
 }
