@@ -24,3 +24,7 @@ a:active {text-decoration: none;
 #map, .show_image {display: inline-block;}
 
 #Locational { float: none;}
+
+
+
+#image-bar { float: left;}
