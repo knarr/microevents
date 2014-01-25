@@ -19,7 +19,8 @@ function getInsta(lat, lng, callback) {
               // Check to see if we got any data from instagram
 	      if (data.data) {
 		  var len = data.data.length; // get the length of the data
-
+                  var display_images = [];
+                  var num_images = 2;
 		  // Gather together the data from instagram
 		  for (var i = 0; i < len; i += 1) {
 		      photo_data.push({
@@ -27,12 +28,23 @@ function getInsta(lat, lng, callback) {
 			  'longitude' : data.data[i].location.longitude
 		      });
 		  }
+                  for (var x = 0; x < num_images; x++) {
+                      var randomnumber=Math.floor(Math.random()*photo_data.length)
+                      display_images.push(getImage(data.data[randomnumber]));
+                  }
+                  
+                  console.log(display_images);
 	      }
 	      // Return the gathered data
-	      callback(photo_data);
+	      callback({'photo_data': photo_data, 'display_images': display_images});
+            
       });
 }
 
+function getImage(imageData) {
+    return imageData.images.low_resolution.url;
+
+}
 
 function getTwitter(lat, lng, callback) {
     var app_key = 'UQVGvAiVnMSJpqdefj44Jw';

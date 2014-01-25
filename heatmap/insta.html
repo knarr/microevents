@@ -10,17 +10,29 @@
   </head>
 
   <body>
-    
+  
+    <div>
+  
     <!-- container for the map -->
     <div id="map" style="width:600px; height:400px;"></div>
 
+    <img class ="show_image" src ="">
+
+    <img class ="show_image" src ="">
+
+    <img class ="show_image" src ="">
     <!--- Text -->
-   
+    </div>
+   <br/>
     <h1>Your location</h1>
+
+    
+
 
     <div id="input">
       <input type="text" id="addressInput"/>
-      <input type="button" value="Find Address" id="submit" onclick="doClick()"/>
+      <button type="button" onclick="doClick()">Find Address</button>
+      <!--<input type="button" value="Find Address" id="submit" onclick="doClick()"/> -->
     </div>
 
     <div id="menu">
@@ -28,9 +40,10 @@
       <a href = "about.html"> about</p></a>
     </div>
 
+    
 
     <!-- Libraries -->
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script> 
     <script src="http://api.maps.nokia.com/2.2.4/jsl.js?with=all"></script>
 
     <!-- Our Scripts -->

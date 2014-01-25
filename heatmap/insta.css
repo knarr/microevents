@@ -20,3 +20,5 @@ A:visited {text-decoration: none;
 
 A:active {text-decoration: none;
 	  color: #FB9A18;}
+
+#map, .show_image {float: left;}
