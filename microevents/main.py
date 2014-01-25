@@ -25,13 +25,7 @@ microevents_key = ndb.Key('Microevents', 'default')
 
 class MainHandler(webapp2.RequestHandler):
     def get(self):
-        self.response.write('''
-<html>
-<body>
-<script> if (navigator.geolocation) alert(navigator.geolocation.getCurrentPosition()); </script>
-</body>
-</html>
-''')
+        self.response.write(insta.html)
 
 
 app = webapp2.WSGIApplication([

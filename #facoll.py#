@@ -1,0 +1,6 @@
+import facebook
+
+token = '295819720567631|FHrDPSGaevHBdGqrOHNTddAjP0E'
+
+graph = facebook.GraphAPI(token)
+print graph.get_object('100000520716357')
