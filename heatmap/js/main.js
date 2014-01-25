@@ -16,6 +16,7 @@ $(function() {
             new nokia.maps.map.component.ScaleBar()
             ],
 	zoomLevel: 14,
+	minZoomLevel: 11,
     
 	center: [lat, lng]
     });
@@ -123,11 +124,11 @@ function getInsta(lat, lng, callback) {
 
     // Instagram access token generated from app web page
     var insta_access_token = '1018228713.7d40b7d.faae893fb8954267b98784c89cc2aaee';
-
+    var dist = 2000 * Math.pow(2.4, 14)/Math.pow(2.4, map.zoomLevel);
     $.get('https://api.instagram.com/v1/media/search?' +
 	  'lat=' + lat + '&lng=' + lng +
 	  '&count=200' +
-	  '&distance=2000' +
+	  '&distance=' + dist +
 	  '&access_token=' + insta_access_token,
 	  function () {}, 'jsonp').done(function (data) {
 	      photo_data = []; // empty photo data array
@@ -162,7 +163,7 @@ function doClick() {
 		      var location = data.results[0].locations[0].latLng;
 		      console.log(location);
 		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
-
+		      map.setZoomLevel(14);
 		      getInsta(location.lat, location.lng, function (data) {
 			  map.overlays.clear();
 			  heatMap(map,data);
