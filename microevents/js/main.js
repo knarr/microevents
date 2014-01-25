@@ -33,7 +33,11 @@ $(function() {
 function redraw() {
   getInsta(map.center.latitude, map.center.longitude, function (data) {
       map.overlays.clear();
-	heatMap(map, data);
+	heatMap(map, data.photo_data);
+        console.log(data.display_images);
+	$('.show_image')[0].src = data.display_images[0];
+        $('.show_image')[1].src = data.display_images[1];
+        console.log($('#show_image'));
   });
 
   // Works but has near identical data to instagram
@@ -64,6 +68,7 @@ function heatMap(map, data) {
 
 
 
+
 function doClick() {
     var address = document.getElementById('addressInput').value;
     var key = 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la';
@@ -79,3 +84,4 @@ function doClick() {
 		      redraw();
 		  });
 }
+
