@@ -26,7 +26,7 @@ $(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(foundUserLocation);
     }
-    reverseGetLocation();
+    
 
 });
 
@@ -34,15 +34,25 @@ $(function() {
 function redraw() {
   getInsta(map.center.latitude, map.center.longitude, function (data) {
       map.overlays.clear();
+
 	heatMap(map, data.photo_data);
         console.log(data.popular_image);
         $('.show_image')[0].src = data.popular_image;
 	$('.show_image')[1].src = data.display_images[0];
         console.log($('#show_image'));
+
   });
 
-  // Works but has near identical data to instagram
-  // getFlickr(map.center.latitude, map.center.longitude, function (data) { });
+  // Get whisper information
+    getWhisper(map.center.latitude, map.center.longitude, function(data) {
+	console.log(data);
+    });
+
+  // Works but has near identical data to instagram (And scaling doens't work so well)
+  /* getFlickr(map.center.latitude, map.center.longitude, function (data) {
+      map.overlays.clear();
+      heatMap(map, data);
+  }); */
   // Doesn't work
   // getTwitter(lat, lng, function (data) { });
 }
@@ -57,6 +67,7 @@ $("#addressInput").keyup(function(event){
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
+  reverseGetLocation();
 }
 
 // Draw a heatmap ontop of the given map, using the data as src
@@ -100,7 +111,6 @@ function doClick() {
 	      '&jsoncallback=renderGeocode', function () {}, 'jsonp').done(
 		  function (data) {
 		      var location = data.results[0].locations[0].latLng;
-		      console.log(location);
 		      map.setCenter({"latitude":location.lat,"longitude":location.lng});
           map.setZoomLevel(14);
           reverseGetLocation();

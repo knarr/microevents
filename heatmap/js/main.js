@@ -26,7 +26,7 @@ $(function() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(foundUserLocation);
     }
-    reverseGetLocation();
+    
 
 });
 
@@ -36,16 +36,18 @@ function redraw() {
       map.overlays.clear();
 
 	heatMap(map, data.photo_data);
-        console.log(data.popular_image);
+        
         $('.show_image')[0].src = data.popular_image;
+        $('.credit')[0].innerHTML=  data.user_data[1] + ' via Instagram';
 	$('.show_image')[1].src = data.display_images[0];
+  $('.credit')[1].innerHTML= data.user_data[0] + ' via Instagram';
         console.log($('#show_image'));
 
   });
 
   // Get whisper information
     getWhisper(map.center.latitude, map.center.longitude, function(data) {
-	console.log(data);
+	
     });
 
   // Works but has near identical data to instagram (And scaling doens't work so well)
@@ -67,6 +69,7 @@ $("#addressInput").keyup(function(event){
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
+  reverseGetLocation();
 }
 
 // Draw a heatmap ontop of the given map, using the data as src

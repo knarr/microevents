@@ -6,8 +6,8 @@ threadsafe: yes
 
 handlers:
 - url: /
-  static_files: insta.html
-  upload: insta.html
+  static_files: index.html
+  upload: index.html
 
 - url: /(.*)
   static_files: \1
