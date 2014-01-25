@@ -38,7 +38,9 @@ function redraw() {
 	heatMap(map, data.photo_data);
         console.log(data.popular_image);
         $('.show_image')[0].src = data.popular_image;
+      $('.show_image')[0].title = data.user_data[0];
 	$('.show_image')[1].src = data.display_images[0];
+      $('.show_image')[2].src = data.display_images[1];
         console.log($('#show_image'));
         
 
@@ -47,8 +49,13 @@ function redraw() {
   // Get whisper information
     getWhisper(map.center.latitude, map.center.longitude, function(data) {
 	console.log(data);
-    var randomnumber=Math.floor(Math.random()*data.length)
-    document.getElementById("whispers").innerHTML ='"'+data[randomnumber]+'"'+ "</h1>";
+	content = "";
+	for (var i = 0; i < 4; i += 1) {
+	    var randomnumber=Math.floor(Math.random()*data.length)
+	    content += '"'+data[randomnumber]+'"'+ "<br /><br />";
+
+	}
+		    document.getElementById("whispers").innerHTML = content;
     });
 
   // Works but has near identical data to instagram (And scaling doens't work so well)
@@ -99,7 +106,7 @@ function reverseGetLocation() {
           var city = data.results[0].locations[0].adminArea5;
           var state = data.results[0].locations[0].adminArea3;
           console.log(city + ", " + state);
-          document.getElementById("Locational").innerHTML = "<h1>"+ city + ", " + state + "</h1>";
+          document.getElementById("Locational").innerHTML = city + ", " + state;
       });
 }
 

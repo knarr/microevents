@@ -11,35 +11,30 @@
 
   <body>
   
-    <div>
   
     
 
 <!-- container for the images -->
-<div id="image-bar">
-<figure>
-  <figcaption>Popular local image</figcaption>
-  <img class ="show_image" src ="">
-</figure>
+<div id="left">
+  <div>
+    <p>Local, recent <a><span style ="color: #c979c2; font-weight: bold;">images</span></a></p>    
+    <img class ="show_image" src ="">
 
-<figure>
-  <figcaption>Random local image</figcaption>
-  <img class ="show_image" src ="">
-</figure>
+    <img class ="show_image" src ="">
+    <img class="show_image" src="">
+  </div>
+
 </div>
 
 
  <!-- container for the map -->
 
-<figure>
+<div id="center">
     <figcaption>
       <!--- Text -->
-      </div>
-        <span></span>
           <h1>WHERE ARE YOU?</h1>
-          <div id="Locational">
-            <h2>Your location</h2>
-          </div>
+
+          <h2 id="Locational">Your location</h2>
       <!--- Button -->
       <div id="input">
         <input type="text" id="addressInput"/>
@@ -47,21 +42,24 @@
       </div>
     </figcaption>
     <!--- Map -->
-    <div id="map" style="width:600px; height:400px;"></div>
+    <div id="map-container">
+      <div id="map"></div>
+    </div>
 
-</figure>
+</div>
 
-<p>Local, recent <a href="http://whisper.sh/"><span style ="color: #c979c2; font-weight: bold;">whispers</span></a></p>    
-<div id="whispers">
-</div> 
+<div id="right">
+  <p>Local, recent <a href="http://whisper.sh/"><span style ="color: #c979c2; font-weight: bold;">whispers</span></a></p>    
+  <div id="whispers">
+  </div> 
 
     
-<!-- Menu -->
+  <!-- Menu -->
     <div id ="menu">
       <a href ="insta.html"><p>home</p></a>
       <a href ="about.html"><p>about</p></a>
     </div>
-
+</div>
     
 
     <!-- Libraries -->

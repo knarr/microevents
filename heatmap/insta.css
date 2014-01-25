@@ -2,8 +2,18 @@ body {background-color: #F5FAFA;
       font-family: sans-serif;
       color: #FB9A18}
 
-h1, h2 {color: #6D929B;
-        }
+h1 {
+    font-size: 32pt;
+        color: #6D929B;
+	margin-bottom: 0px;
+	text-align: center;
+    }
+
+h2 {
+    font-size: 20pt;
+    color: #6D929B;
+    }
+
 
 p {color: #6D929B;}
 
@@ -32,10 +42,62 @@ a:active {text-decoration: none;
 #whispers {float: none;
            font-size: 1.5em;}
 
-#image-bar {float: left;}
+#left #center #right {float: left;}
 
-#menu {float: left;
-       font-size: 1.5em;
-       color: #6D929B;}
+#left {
+    font-size: 8pt;
+    float: left;
+    width: 20%;
+    margin: 0px;
+    margin-right: 10px;
+    padding: 0px;
+    padding-bottom: 5px;
+    min-width: 200px;
+    text-align: center;
+    color: #6D929B;
+    }
+
+
+#center {
+    width: 55%;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+    text-align: center;
+    min-width: 400px;
+    }
+
+#map {
+    width: 100%;
+    height: 400px;
+    margin: 0px;
+    padding: 0px;
+    margin-top: 20px;
+    }
+
+#right {
+    margin:0px;
+    padding: 0px;
+    float: left;
+    margin-left: 3%;
+    width: 20%;
+    min-width: 150px;
+    font-size: 8pt;
+    }
+
+#right p {
+    text-align: center;
+    }
+
+#menu {
+     float: left;
+     padding-top: 15px;
+     }
+#menu a {
+     font-size: 2em;
+     padding-top: 15px;
+     color: #6D929B;
+}
+
 
 
