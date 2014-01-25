@@ -20,23 +20,29 @@ function getInsta(lat, lng, callback) {
 	      if (data.data) {
 		  var len = data.data.length; // get the length of the data
                   var display_images = [];
+                  var popular_image_index = 0
                   var num_images = 2;
 		  // Gather together the data from instagram
 		  for (var i = 0; i < len; i += 1) {
 		      photo_data.push({
 			  'latitude'  : data.data[i].location.latitude,
 			  'longitude' : data.data[i].location.longitude
+                      
 		      });
+                  if (data.data[i].likes.count > data.data[popular_image_index].likes.count) {
+		      popular_image_index = i;
+                  }
+                      
 		  }
                   for (var x = 0; x < num_images; x++) {
                       var randomnumber=Math.floor(Math.random()*photo_data.length)
                       display_images.push(getImage(data.data[randomnumber]));
                   }
                   
-                  console.log(display_images);
+                  console.log(data.data[randomnumber]);
 	      }
 	      // Return the gathered data
-	      callback({'photo_data': photo_data, 'display_images': display_images});
+	      callback({'photo_data': photo_data, 'display_images': display_images, 'popular_image': getImage(data.data[popular_image_index])});
             
       });
 }
