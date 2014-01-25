@@ -2,11 +2,12 @@ body {background-color: #F5FAFA;
       font-family: sans-serif;
       color: #FB9A18}
 
-h1 {color: #6D929B;}
+h1, h2 {color: #6D929B;
+        }
 
 p {color: #6D929B;}
 
-
+img {height: 200px;}
 
 a:hover {background-color: white;
 	 color: #FB9A18;

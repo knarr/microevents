@@ -99,7 +99,7 @@ function reverseGetLocation() {
           var city = data.results[0].locations[0].adminArea5;
           var state = data.results[0].locations[0].adminArea3;
           console.log(city + ", " + state);
-          document.getElementById("Locational").innerHTML = "<h1>"+ city + ", " + state + ". </h1>";
+          document.getElementById("Locational").innerHTML = "<h1>"+ city + ", " + state + "</h1>";
       });
 }
 
