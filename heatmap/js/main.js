@@ -50,6 +50,7 @@ $( document ).mouseup(function(){
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
+  console.log(map.center);
 }
 
 // Draw a heatmap ontop of the given map, using the data as src
@@ -134,7 +135,7 @@ function getInsta(lat, lng, callback) {
               // Check to see if we got any data from instagram
 	      if (data.data) {
 		  var len = data.data.length; // get the length of the data
-		  console.log(len);
+
 		  // Gather together the data from instagram
 		  for (var i = 0; i < len; i += 1) {
 		      photo_data.push({
@@ -150,17 +151,15 @@ function getInsta(lat, lng, callback) {
 
 var SAMPLE_POST = 'http://www.mapquest.api.com/geocoding/v1/address?key=YOUR_KEY_HERE&location=Lancaster,PA&callback=renderGeocode';
 
-function showBasicURL() {
-    var safe = SAMPLE_POST;
-    document.getElementById('basicSampleUrl').innerHTML = safe.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
 
-function doClick(address) {
+
+function doClick() {
+    var address = document.getElementById('addressInput').value;
     var script = document.createElement('script');
     script.type = 'text/javascript';
-    showBasicURL();
     var newURL = SAMPLE_POST.replace('YOUR_KEY_HERE', 'Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la');
     newURL = newURL.replace('Lancaster,PA', address);
+  alert(newURL);
     script.src = newURL;
     document.body.appendChild(script);
 }
