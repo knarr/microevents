@@ -49,7 +49,6 @@ $( document ).mouseup(function(){
 
 function foundUserLocation(location) {
   map.setCenter(location.coords);
-  console.log(map.center);
 }
 
 // Draw a heatmap ontop of the given map, using the data as src
@@ -134,7 +133,7 @@ function getInsta(lat, lng, callback) {
               // Check to see if we got any data from instagram
 	      if (data.data) {
 		  var len = data.data.length; // get the length of the data
-
+		  console.log(len);
 		  // Gather together the data from instagram
 		  for (var i = 0; i < len; i += 1) {
 		      photo_data.push({
