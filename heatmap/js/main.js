@@ -16,6 +16,7 @@ $(function() {
             new nokia.maps.map.component.ScaleBar()
             ],
 	zoomLevel: 14,
+    
 	center: [lat, lng]
     });
     map.overlays.clear(); // Clear any existing overlays on the map
@@ -125,7 +126,7 @@ function getInsta(lat, lng, callback) {
     $.get('https://api.instagram.com/v1/media/search?' +
 	  'lat=' + lat + '&lng=' + lng +
 	  '&count=200' +
-	  '&distance=7000' +
+	  '&distance=2000' +
 	  '&access_token=' + insta_access_token,
 	  function () {}, 'jsonp').done(function (data) {
 	      photo_data = []; // empty photo data array
@@ -146,3 +147,37 @@ function getInsta(lat, lng, callback) {
 	      callback(photo_data);
       });
 }
+
+var SAMPLE_POST = 'http://www.mapquest.api.com/geocoding/v1/address?key=YOUR_KEY_HERE&location=Lancaster,PA&callback=renderGeocode';
+
+function showBasicURL() {
+    var safe = SAMPLE_POST;
+    document.getElementById('basicSampleUrl').innerHTML = safe.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+};
+
+function doClick(address) {
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    showBasicURL();
+    var newURL = SAMPLE_POST.replace('YOUR_KEY_HERE', Fmjtd%7Cluur29082d%2Ca5%3Do5-90z2la);
+    newURL = newURL.replace('Lancaster,PA', address);
+    script.src = newURL;
+    document.body.appendChild(script);
+};
+
+function renderGeocode(response) {
+        
+  var location = response.results[0].locations[0];
+  map.setcenter(location.latLng.lat + ", " + location.latLng.lng + ")";
+  function(){
+    map.overlays.clear();
+    getInsta(location.latLng.lat, location.latLng.lng, function (data) {
+	console.log(data);
+	heatMap(map, data);
+    });
+  }
+	
+  var location = response.results[0].locations[0];
+  map.setcenter(location.latLng.lat + ", " + location.latLng.lng + ")";
+}
+
