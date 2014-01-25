@@ -1,11 +1,14 @@
 $(function() {
+    
     var lat = 41.8262;
     var lng = -71.4032;
     
     var container = document.getElementById("map");
 
     var map = new nokia.maps.map.Display(container, {
-	compontents: [],
+	components: [
+            new nokia.maps.map.component.Behavior(), 
+            new nokia.maps.map.component.ZoomBar()],
 	zoomLevel: 14,
 	center: [lat, lng]
     });
