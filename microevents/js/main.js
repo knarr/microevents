@@ -48,6 +48,11 @@ function redraw() {
 }
   
 $( document ).mouseup(redraw); // Redraw when the map is moved
+$("#addressInput").keyup(function(event){
+    if(event.keyCode == 13){
+        doClick();
+    }
+});
 
 
 function foundUserLocation(location) {
