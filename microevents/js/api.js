@@ -38,7 +38,7 @@ function getInsta(lat, lng, callback) {
 
                   var display_images = [];
                   var popular_image_index = 0
-                  var num_images = 1;
+                  var num_images = 2;
                   var users = [];
 
 		  // Gather together the data from instagram
@@ -58,12 +58,10 @@ function getInsta(lat, lng, callback) {
                       var randomnumber=Math.floor(Math.random()*photo_data.length)
                       var img = getImage(data.data[randomnumber]);
                       users.push(data.data[randomnumber].user.username);
-                      users.push(data.data[popular_image_index].user.username);
-                      display_images.push(img);
-                      
+                      display_images.push(img);                     
                   }
                   
-                  
+                  users.push(data.data[popular_image_index].user.username);
 	      }
 	      // Return the gathered data
 	      callback({'photo_data': photo_data, 'display_images': display_images, 'popular_image': getImage(data.data[popular_image_index]), 'user_data': users});

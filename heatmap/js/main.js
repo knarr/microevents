@@ -38,8 +38,11 @@ function redraw() {
 	heatMap(map, data.photo_data);
         
         $('.show_image')[0].src = data.popular_image;
+        $('.show_image')[0].title = data.user_data[2];
 	$('.show_image')[1].src = data.display_images[0];
+  $('.show_image')[1].title = data.user_data[0];
       $('.show_image')[2].src = data.display_images[1];
+      $('.show_image')[2].title = data.user_data[1];
 
   });
 
